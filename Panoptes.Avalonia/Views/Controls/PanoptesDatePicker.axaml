@@ -1,0 +1,14 @@
+<UserControl x:Class="Panoptes.Avalonia.Views.Controls.PanoptesDatePicker"
+			 xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 d:DesignWidth="150" d:DesignHeight="25">
+	<StackPanel Orientation="Horizontal">
+		<TextBox x:Name="_textBoxDate" MinWidth="85" Text="{Binding DateStr}" Watermark="dd/mm/yyyy" Padding="5,0,5,0"
+				 VerticalContentAlignment="Center" VerticalAlignment="Stretch"
+				 HorizontalAlignment="Stretch"/>
+		<Button Content="C" Width="25" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="Black"/>
+	</StackPanel>
+</UserControl>
