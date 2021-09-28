@@ -5,10 +5,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
 			 d:DesignWidth="150" d:DesignHeight="25">
+
+	<!--NOT FINISHED - Use CalendarDatePicker instead-->
+	<UserControl.Styles>
+		<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="BorderBrush" Value="{StaticResource ThemeBorderHighBrush}"/>
+		</Style>
+	</UserControl.Styles>
+	
 	<StackPanel Orientation="Horizontal">
-		<TextBox x:Name="_textBoxDate" MinWidth="85" Text="{Binding DateStr}" Watermark="dd/mm/yyyy" Padding="5,0,5,0"
-				 VerticalContentAlignment="Center" VerticalAlignment="Stretch"
+		<TextBox x:Name="_textBoxDate" MinWidth="85" Text="{Binding DateStr}" Watermark="dd/mm/yyyy"
+				 Padding="5,0,5,0" BorderThickness="1,1,0,1"
+				 VerticalContentAlignment="Stretch" VerticalAlignment="Stretch"
 				 HorizontalAlignment="Stretch"/>
-		<Button Content="C" Width="25" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="Black"/>
+		<Button Width="25" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"
+				BorderThickness="0,1,1,1" Padding="1" Background="Transparent"
+				BorderBrush="{StaticResource ThemeBorderMidBrush}" Click="Button_Click">
+			<Button.Content>
+				<DrawingPresenter VerticalAlignment="Center" HorizontalAlignment="Center"
+								  Drawing="{StaticResource TablerIcons.Calendar}"/>
+			</Button.Content>
+		</Button>
 	</StackPanel>
+
 </UserControl>

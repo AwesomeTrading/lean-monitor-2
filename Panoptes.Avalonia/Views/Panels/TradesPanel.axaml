@@ -16,26 +16,31 @@
 		<Style Selector="DataGridCell.directionColored">
 			<Setter Property="Foreground" Value="{Binding Path=Direction, Mode=OneWay, Converter={StaticResource TradesColorConverter}}"/>
 		</Style>
+
+		<Style Selector="CalendarDatePicker">
+			<Setter Property="Watermark" Value="dd/mm/yyyy"/>
+			<Setter Property="MinWidth" Value="110"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Margin" Value="2"/>
+			<Setter Property="Padding" Value="5,1,5,0"/>
+		</Style>
 	</UserControl.Styles>
 	
 	<TabControl Padding="0">
-		<TabItem Header="Today" Padding="7,2,7,3" FontSize="11" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom">
+		<TabItem Header="Today">
 			<local:TradesDataGridControl Items="{Binding Orders, Mode=OneWay}"/>
 		</TabItem>
-		<TabItem Header="History" Padding="7,2,7,3" FontSize="11" IsSelected="True">
+		<TabItem Header="History" IsSelected="True">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="25"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
 				<StackPanel Grid.Row="0" Orientation="Horizontal">
-					<Label Content="Date from "/>
-					<ctrls:PanoptesDatePicker SelectedDate="{Binding FromDate}"></ctrls:PanoptesDatePicker>
+					<Label Content="From "/>
+					<CalendarDatePicker SelectedDate="{Binding FromDate, Mode=TwoWay}" DisplayDateEnd="{Binding ToDate, Mode=OneWay}"/>
 					<Label Content=" to "/>
-					<ctrls:PanoptesDatePicker SelectedDate="{Binding ToDate}"></ctrls:PanoptesDatePicker>
-					<!--
-					<TextBox x:Name="_textBoxFrom" MinWidth="80" Text="{Binding DateStr}" VerticalAlignment="Stretch" Watermark="dd/mm/yyyy" Padding="5,1,5,1"/>
-					-->
+					<CalendarDatePicker SelectedDate="{Binding ToDate, Mode=TwoWay}" DisplayDateStart="{Binding FromDate, Mode=OneWay}"/>
 					<Label Content="|>"/>
 					<Label Content="{Binding FromDate}"/>
 					<Label Content=" to "/>
@@ -45,5 +50,6 @@
 				<local:TradesDataGridControl Grid.Row="1" Items="{Binding Orders, Mode=OneWay}"/>
 			</Grid>
 		</TabItem>
+		<TabItem Header="..."/>
 	</TabControl>
 </UserControl>

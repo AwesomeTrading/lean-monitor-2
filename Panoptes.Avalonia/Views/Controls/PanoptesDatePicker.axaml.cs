@@ -1,21 +1,49 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Primitives.PopupPositioning;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 using System;
 using System.Linq;
 
 namespace Panoptes.Avalonia.Views.Controls
 {
+    [Obsolete("NOT FINISHED - Use CalendarDatePicker instead")]
     public partial class PanoptesDatePicker : UserControl
     {
+        private readonly TextBox _textBoxDate;
+
+        [Obsolete("NOT FINISHED - Use CalendarDatePicker instead")]
         public PanoptesDatePicker()
         {
             InitializeComponent();
             _textBoxDate = this.Get<TextBox>("_textBoxDate");
             _textBoxDate.DataContext = this;
             _textBoxDate.AddHandler(TextInputEvent, _textBoxFrom_TextInput, RoutingStrategies.Tunnel);
+        }
+
+        private void Button_Click(object? sender, RoutedEventArgs e)
+        {
+            /*
+            Window window = new Window()
+            {
+                Content = new Calendar(),
+                Topmost = true,
+                ShowActivated = true,
+                ShowInTaskbar = true,
+
+                //https://stackoverflow.com/questions/65748375/avaloniaui-how-to-change-the-style-of-the-window-borderless-toolbox-etc
+                ExtendClientAreaToDecorationsHint = true,
+                ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome,
+                ExtendClientAreaTitleBarHeightHint = -1,
+                SizeToContent = SizeToContent.WidthAndHeight,
+                CanResize = false
+            };
+            window.Show();
+            */
         }
 
         private void InitializeComponent()
@@ -25,6 +53,7 @@ namespace Panoptes.Avalonia.Views.Controls
 
         public static readonly DirectProperty<PanoptesDatePicker, DateTime?> SelectedDateProperty = AvaloniaProperty.RegisterDirect<PanoptesDatePicker, DateTime?>(nameof(SelectedDate), o => o.SelectedDate, (o, v) => o.SelectedDate = v, defaultBindingMode: BindingMode.OneWayToSource);
 
+        // https://github.com/AvaloniaUI/Avalonia/blob/ed06ce5690393e9af8a785ddf848a1df7023c42b/src/Avalonia.Controls/DateTimePickers/DatePicker.cs#L244
         private DateTime? _selectedDate;
         public DateTime? SelectedDate
         {
@@ -44,7 +73,7 @@ namespace Panoptes.Avalonia.Views.Controls
 
         public string Text => _textBoxDate.Text;
 
-        private readonly TextBox _textBoxDate;
+
 
         private string _error;
         private string _dateStr;
@@ -90,7 +119,7 @@ namespace Panoptes.Avalonia.Views.Controls
             var index = tb.CaretIndex;
             if (!string.IsNullOrEmpty(tb.Text))
             {
-                tb.Text = string.Join("", tb.Text.Take(index));
+                tb.Text = string.Concat(tb.Text.Take(index));
             }
 
             int num = -1;
